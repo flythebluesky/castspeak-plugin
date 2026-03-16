@@ -1,0 +1,10 @@
+{
+  "name": "castspeak",
+  "version": "1.0.0",
+  "description": "Control Google Nest Mini and Chromecast devices — speak text, play audio, set volume, and check status",
+  "author": {
+    "name": "flythebluesky"
+  },
+  "repository": "https://github.com/flythebluesky/castspeak-plugin",
+  "keywords": ["chromecast", "nest", "tts", "cast", "smart-speaker"]
+}
