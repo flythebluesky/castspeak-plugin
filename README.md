@@ -5,7 +5,8 @@ Claude Code plugin for controlling Google Nest Mini and Chromecast devices via [
 ## Install
 
 ```
-/plugin install castspeak@flythebluesky/castspeak-plugin
+/plugin marketplace add flythebluesky/castspeak-plugin
+/plugin install castspeak@castspeak
 ```
 
 ## What it does
