@@ -1,23 +1,17 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "castspeak",
+  "description": "Plugins for controlling Chromecast and Google Nest devices",
   "owner": {
     "name": "flythebluesky"
-  },
-  "metadata": {
-    "description": "Plugins for controlling Chromecast and Google Nest devices"
   },
   "plugins": [
     {
       "name": "castspeak",
-      "source": ".",
+      "source": "./plugins/castspeak",
       "description": "Control Google Nest Mini and Chromecast devices — speak text, play audio, set volume, and check status",
       "version": "1.0.0",
-      "author": {
-        "name": "flythebluesky"
-      },
-      "repository": "https://github.com/flythebluesky/castspeak-plugin",
-      "license": "MIT",
-      "keywords": ["chromecast", "nest", "tts", "cast", "smart-speaker"]
+      "category": "productivity"
     }
   ]
 }
