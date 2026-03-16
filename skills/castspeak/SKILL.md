@@ -9,10 +9,73 @@ Control Cast devices on the local network using the `castspeak` CLI.
 
 ## Prerequisites
 
-The `castspeak` binary must be built and on your PATH (or run from the repo directory):
+Check if `castspeak` is available. If not, download and install it:
 
 ```bash
-cd /Users/rori/_repos/castspeak && go build -o castspeak .
+# Check if already installed
+command -v castspeak >/dev/null 2>&1 && castspeak --version
+```
+
+If not found, install it by running this script:
+
+```bash
+set -euo pipefail
+
+# Detect OS and architecture
+OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+ARCH="$(uname -m)"
+case "$ARCH" in
+  x86_64)  ARCH="amd64" ;;
+  aarch64) ARCH="arm64" ;;
+  arm64)   ARCH="arm64" ;;
+  *)       echo "Unsupported architecture: $ARCH" >&2; exit 1 ;;
+esac
+
+# Windows detection (Git Bash / MSYS / WSL)
+case "$OS" in
+  mingw*|msys*|cygwin*) OS="windows" ;;
+esac
+
+# Get latest release tag
+LATEST="$(curl -fsSL -H 'Accept: application/vnd.github.v3+json' \
+  https://api.github.com/repos/flythebluesky/castspeak/releases/latest \
+  | grep '"tag_name"' | head -1 | cut -d'"' -f4)"
+
+if [ -z "$LATEST" ]; then
+  echo "Failed to fetch latest release" >&2; exit 1
+fi
+
+# Download and install
+EXT="tar.gz"
+[ "$OS" = "windows" ] && EXT="zip"
+URL="https://github.com/flythebluesky/castspeak/releases/download/${LATEST}/castspeak_${OS}_${ARCH}.${EXT}"
+INSTALL_DIR="${HOME}/.local/bin"
+mkdir -p "$INSTALL_DIR"
+
+echo "Downloading castspeak ${LATEST} for ${OS}/${ARCH}..."
+TMPDIR="$(mktemp -d)"
+cd "$TMPDIR"
+curl -fsSL -o "castspeak.${EXT}" "$URL"
+
+if [ "$EXT" = "zip" ]; then
+  unzip -q "castspeak.${EXT}"
+else
+  tar xzf "castspeak.${EXT}"
+fi
+
+mv castspeak "$INSTALL_DIR/castspeak"
+chmod +x "$INSTALL_DIR/castspeak"
+rm -rf "$TMPDIR"
+
+echo "Installed castspeak to $INSTALL_DIR/castspeak"
+echo "Make sure $INSTALL_DIR is on your PATH"
+```
+
+After installation, verify it works:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+castspeak --version
 ```
 
 ## Workflow

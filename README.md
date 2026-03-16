@@ -8,17 +8,9 @@ Claude Code plugin for controlling Google Nest Mini and Chromecast devices via [
 /plugin install castspeak@flythebluesky/castspeak-plugin
 ```
 
-## Prerequisites
-
-You need the `castspeak` binary built and on your PATH. From the [castspeak repo](https://github.com/flythebluesky/castspeak):
-
-```bash
-go build -o castspeak .
-```
-
 ## What it does
 
-Once installed, Claude Code gains a `castspeak` skill that lets you control Cast devices with natural language:
+Once installed, Claude Code gains a `castspeak` skill that lets you control Cast devices with natural language. The `castspeak` binary is automatically downloaded from [GitHub Releases](https://github.com/flythebluesky/castspeak/releases) on first use — no Go toolchain required.
 
 - "announce dinner on my Nest Mini"
 - "play this URL on the living room speaker"
